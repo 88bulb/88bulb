@@ -1,0 +1,6 @@
+const udp = require('dgram')
+const server = udp.createSocket('udp4')
+server.on('message', msg => process.stdout.write(msg.toString()))
+server.on('error', error => console.log(err))
+server.on('listening', () => console.log(server.address()))
+server.bind(6016)

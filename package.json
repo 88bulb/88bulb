@@ -1,0 +1,19 @@
+{
+  "name": "88bulb",
+  "version": "1.0.0",
+  "description": "巴巴爸爸",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/88bulb/88bulb.git"
+  },
+  "author": "matianfu@gingerologist.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/88bulb/88bulb/issues"
+  },
+  "homepage": "https://github.com/88bulb/88bulb#readme"
+}
