@@ -1,7 +1,7 @@
 const fs = require('fs')
 const net = require('net')
 
-fs.readFile('assets/rtcmem.bin', (err, buf) => {
+fs.readFile('assets/bulbcast-0019.bin', (err, buf) => {
   if (err) return
   const size = Buffer.alloc(4)
   size.writeUInt32LE(buf.length)
