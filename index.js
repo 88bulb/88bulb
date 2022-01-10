@@ -1,13 +1,14 @@
 const fs = require('fs')
 const net = require('net')
 
-fs.readFile('assets/bulbcast-0019.bin', (err, buf) => {
+fs.readFile('assets/bulbcast-0024.bin', (err, buf) => {
   if (err) return
   const size = Buffer.alloc(4)
   size.writeUInt32LE(buf.length)
   const hash = buf.slice(buf.length - 32).toString('hex')
   console.log(`sha256: ${hash}`)
   console.log(`sha80: ${hash.slice(0, 20)}`)
+  console.log(`b01bb007a0764e689fb6${hash.slice(0, 20)}a5a5a5a50200`)
   const server = net.createServer(socket =>
     socket.on('data', data => {
       const text = data.toString()

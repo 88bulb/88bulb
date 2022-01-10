@@ -18,6 +18,7 @@
   "homepage": "https://github.com/88bulb/88bulb#readme",
   "dependencies": {
     "blessed": "^0.1.81",
-    "serialport": "^9.2.8"
+    "serialport": "^9.2.8",
+    "strip-color": "^0.1.0"
   }
 }
