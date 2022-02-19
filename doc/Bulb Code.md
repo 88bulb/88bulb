@@ -264,7 +264,7 @@ HSV的取值范围0-255整数，数据类型`uint8_t`；注意这与一般的HSV
 
 `b01bc0de00a5a5a5a5ffff100300000008dd336600ff1100ffff`
 
-----
+
 
 ### 0x1004 cycle color
 
@@ -293,7 +293,27 @@ HSV的取值范围0-255整数，数据类型`uint8_t`；注意这与一般的HSV
 
 `b01bc0de00a5a5a5a5ffff1004000000000500ffff0000000000`
 
+### 0x1005 fast flash
 
+| code (2 bytes) | payload (13 bytes)           |
+| -------------- | ---------------------------- |
+| `1005`         | `xxxxxxxxxxxxxxxxxxxxxxxxxx` |
+
+| No | name    | length | example | comment |
+| -- | ------- | ----    | ------- | ------- |
+| 0  | on | 1 byte | `10` (16ms) | on时间，单位ms |
+| 1 | total | 2 bytes | `0100` | 周期时间（即on+off），单位ms |
+| 2 | red        | 2 bytes | `00`    | 红色亮度，0~65535 |
+| 3 | green | 2 bytes | `00`    | 目前固定为0|
+| 4 | blue | 2 bytes | `05`    | 周期（秒）|
+| 5  | cold white | 2 bytes | `00`    | 开始颜色|
+| 6  | warm white | 2 bytes | `ff`    | 固定饱和度|
+
+#### 例子1：白光闪烁
+
+冷白暖白一起最大亮度闪烁，on时间20ms，周期200ms（5Hz）。
+
+`b01bc0de00a5a5a5a5ffff10051400c8000000000000ffffffff`
 
 
 
