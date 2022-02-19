@@ -295,6 +295,22 @@ HSV的取值范围0-255整数，数据类型`uint8_t`；注意这与一般的HSV
 
 ### 0x1005 fast flash
 
+0x1005命令是爆闪需求。
+
+爆闪是目前唯一一个不使用色彩空间直接控制rgbcw五路通道的duty cycle的指令。实际内部硬件配置是0~4095的12bit动态范围，编码为了方便使用0~65535的16bit范围，实际代码会直接shift掉最后4bit，相当于除以16。
+
+
+
+on时间是0~255ms，因为是闪烁需求，未提供更长的时间范围，如果实际使用认为需要更高的时间长度，需要修改指令编码格式。
+
+total时间是0~65535ms，完全够用。
+
+
+
+内部限制**total时间至少是on时间的两倍**，如果不足会强制设置total是2 * on。对五路通道没有做限制，但原则上RGB三路最多只该开两路，任何纯色都可以用两色混出来无需三色。on不应该为0。
+
+
+
 | code (2 bytes) | payload (13 bytes)           |
 | -------------- | ---------------------------- |
 | `1005`         | `xxxxxxxxxxxxxxxxxxxxxxxxxx` |
@@ -302,12 +318,12 @@ HSV的取值范围0-255整数，数据类型`uint8_t`；注意这与一般的HSV
 | No | name    | length | example | comment |
 | -- | ------- | ----    | ------- | ------- |
 | 0  | on | 1 byte | `10` (16ms) | on时间，单位ms |
-| 1 | total | 2 bytes | `0100` | 周期时间（即on+off），单位ms |
-| 2 | red        | 2 bytes | `00`    | 红色亮度，0~65535 |
-| 3 | green | 2 bytes | `00`    | 目前固定为0|
-| 4 | blue | 2 bytes | `05`    | 周期（秒）|
-| 5  | cold white | 2 bytes | `00`    | 开始颜色|
-| 6  | warm white | 2 bytes | `ff`    | 固定饱和度|
+| 1 | total | 2 bytes | `0100`（256ms） | 周期时间（即on+off），单位ms |
+| 2 | red        | 2 bytes | `0000`  | 红色亮度，0~65535 |
+| 3 | green | 2 bytes | `0000`          | 绿色                         |
+| 4 | blue | 2 bytes | `0000` | 蓝色 |
+| 5  | cold white | 2 bytes | `ffff` | 冷白 |
+| 6  | warm white | 2 bytes | `ffff`  | 暖白 |
 
 #### 例子1：白光闪烁
 
